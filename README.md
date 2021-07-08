@@ -9,7 +9,7 @@ The package can be installed by adding `faas_base` to your list of dependencies 
 ```elixir
 def deps do
   [
-    {:faas_base, "~> 1.0.0"}
+    {:faas_base, "~> 1.0.1"}
   ]
 end
 ```

@@ -114,14 +114,12 @@ defmodule FaasBase.Aws.Base do
          body: body,
          headers: headers,
          status_code: status_code,
-         cookies: cookies,
          is_base64_encoded: is_base64_encoded
        }) do
     %{
       body: body,
       headers: headers,
       statusCode: status_code,
-      cookies: cookies,
       isBase64Encoded: is_base64_encoded
     }
     |> Jason.encode!()
