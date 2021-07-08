@@ -13,7 +13,6 @@ defmodule FaasBase.Aws.Response do
     :body,
     :headers,
     :status_code,
-    cookies: [],
     is_base64_encoded: false
   ]
 
@@ -53,24 +52,11 @@ defmodule FaasBase.Aws.Response do
   @doc """
   create response
   """
-  def to_response(body, headers, status_code, cookies) do
+  def to_response(body, headers, status_code, is_base64_encoded) do
     %__MODULE__{
       body: body,
       headers: headers,
       status_code: status_code,
-      cookies: cookies
-    }
-  end
-
-  @doc """
-  create response
-  """
-  def to_response(body, headers, status_code, cookies, is_base64_encoded) do
-    %__MODULE__{
-      body: body,
-      headers: headers,
-      status_code: status_code,
-      cookies: cookies,
       is_base64_encoded: is_base64_encoded
     }
   end
