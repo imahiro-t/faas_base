@@ -4,7 +4,7 @@ defmodule FaasBase.MixProject do
   def project do
     [
       app: :faas_base,
-      version: "1.0.1",
+      version: "1.0.2",
       elixir: "~> 1.9",
       name: "FaasBase",
       description: description(),
