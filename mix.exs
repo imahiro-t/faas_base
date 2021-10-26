@@ -23,10 +23,6 @@ defmodule FaasBase.MixProject do
     ]
   end
 
-  defp description do
-    "Base library to create AWS Lambda, Azure Functions or IBM Functions"
-  end
-
   defp package do
     [
       maintainers: ["erin"],

@@ -16,6 +16,13 @@ defmodule FaasBase.Ibm.Request do
     :path
   ]
 
+  @type t :: %__MODULE__{
+          method: atom,
+          headers: map,
+          body: String.t(),
+          path: String.t()
+        }
+
   @doc """
   create request from event
   """
