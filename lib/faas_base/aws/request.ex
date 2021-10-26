@@ -35,6 +35,23 @@ defmodule FaasBase.Aws.Request do
     :is_base64_encoded
   ]
 
+  @type t :: %__MODULE__{
+          method: atom,
+          version: String.t(),
+          resource: String.t(),
+          path: String.t(),
+          http_method: String.t(),
+          headers: String.t(),
+          multi_value_headers: String.t(),
+          query_string_parameters: String.t(),
+          multi_value_query_string_parameters: String.t(),
+          request_context: String.t(),
+          path_parameters: String.t(),
+          stage_variables: String.t(),
+          body: String.t(),
+          is_base64_encoded: String.t()
+        }
+
   @doc """
   create request from event
   """

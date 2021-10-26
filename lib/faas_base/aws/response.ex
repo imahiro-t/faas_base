@@ -16,6 +16,13 @@ defmodule FaasBase.Aws.Response do
     is_base64_encoded: false
   ]
 
+  @type t :: %__MODULE__{
+          body: String.t(),
+          headers: map,
+          status_code: integer,
+          is_base64_encoded: boolean
+        }
+
   @doc """
   create response
   """

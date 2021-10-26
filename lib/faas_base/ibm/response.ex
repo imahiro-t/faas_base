@@ -14,6 +14,12 @@ defmodule FaasBase.Ibm.Response do
     :status_code
   ]
 
+  @type t :: %__MODULE__{
+          body: String.t(),
+          headers: map,
+          status_code: integer
+        }
+
   @doc """
   create response
   """

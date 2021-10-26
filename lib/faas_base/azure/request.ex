@@ -22,6 +22,16 @@ defmodule FaasBase.Azure.Request do
     :method_name
   ]
 
+  @type t :: %__MODULE__{
+          method: atom,
+          url: String.t(),
+          headers: map,
+          body: String.t(),
+          params: map,
+          query: map,
+          method_name: String.t()
+        }
+
   @doc """
   create request from event
   """
