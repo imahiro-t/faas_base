@@ -1,18 +1,21 @@
 defmodule FaasBase.MixProject do
   use Mix.Project
 
+  @description "Base library to create AWS Lambda, Azure Functions or IBM Functions"
+  @source_url "https://github.com/imahiro-t/faas_base"
+
   def project do
     [
       app: :faas_base,
       version: "1.0.2",
       elixir: "~> 1.9",
       name: "FaasBase",
-      description: description(),
+      description: @description,
       package: package(),
       build_embedded: true,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      source_url: "https://github.com/imahiro-t/faas_base",
+      source_url: @source_url,
       docs: [
         main: "readme",
         extras: ["README.md"]
@@ -28,7 +31,7 @@ defmodule FaasBase.MixProject do
     [
       maintainers: ["erin"],
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/imahiro-t/faas_base"}
+      links: %{"Github" => @source_url}
     ]
   end
 
