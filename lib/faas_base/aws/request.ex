@@ -1,6 +1,6 @@
 defmodule FaasBase.Aws.Request do
   @moduledoc """
-  A request for AWS Lambda.
+  A request for AWS Lambda. (format v1 and v2 in API Gateway)
 
   ## properties
   - `:method` - method
@@ -16,67 +16,86 @@ defmodule FaasBase.Aws.Request do
   - `:path_parameters` - pathParameters
   - `:is_base64_encoded` - isBase64Encoded
   - `:stage_variables` - stageVariables
+  - `:resource` - resource
+  - `:path` - path
+  - `:http_method` - httpMethod
+  - `:multi_value_headers` - multiValueHeaders
+  - `:multi_value_query_string_parameters` - multiValueQueryStringParameters
   """
 
   defstruct [
     :method,
     :version,
+    :route_key,
+    :raw_path,
+    :raw_query_string,
+    :cookies,
+    :headers,
+    :query_string_parameters,
+    :request_context,
+    :body,
+    :path_parameters,
+    :is_base64_encoded,
+    :stage_variables,
     :resource,
     :path,
     :http_method,
-    :headers,
     :multi_value_headers,
-    :query_string_parameters,
-    :multi_value_query_string_parameters,
-    :request_context,
-    :path_parameters,
-    :stage_variables,
-    :body,
-    :is_base64_encoded
+    :multi_value_query_string_parameters
   ]
 
   @type t :: %__MODULE__{
           method: atom,
           version: String.t(),
+          route_key: String.t(),
+          raw_path: String.t(),
+          raw_query_string: String.t(),
+          cookies: list(String.t()),
+          headers: map,
+          query_string_parameters: map,
+          request_context: map,
+          body: String.t(),
+          path_parameters: map,
+          is_base64_encoded: boolean,
+          stage_variables: map,
           resource: String.t(),
           path: String.t(),
           http_method: String.t(),
-          headers: String.t(),
-          multi_value_headers: String.t(),
-          query_string_parameters: String.t(),
-          multi_value_query_string_parameters: String.t(),
-          request_context: String.t(),
-          path_parameters: String.t(),
-          stage_variables: String.t(),
-          body: String.t(),
-          is_base64_encoded: String.t()
+          multi_value_headers: map,
+          multi_value_query_string_parameters: map
         }
 
   @doc """
   create request from event
   """
   def to_request(event) do
-    http_method =
-      case event |> Map.get("httpMethod") do
+    method =
+      case event |> Map.get("requestContext", %{}) |> Map.get("http", %{}) |> Map.get("method", event |> Map.get("httpMethod")) do
         nil -> nil
         method -> method |> String.downcase() |> String.to_atom()
       end
+    
+    path = event |> Map.get("rawPath", event |> Map.get("path"))
 
     %__MODULE__{
-      method: http_method,
+      method: method,
       version: event |> Map.get("version", "1.0"),
-      resource: event |> Map.get("resource"),
-      path: event |> Map.get("path"),
-      http_method: http_method,
+      route_key: event |> Map.get("routeKey"),
+      raw_path: path,
+      raw_query_string: event |> Map.get("rawQueryString"),
+      cookies: event |> Map.get("cookies"),
       headers: event |> Map.get("headers"),
-      multi_value_headers: event |> Map.get("multiValueHeaders"),
       query_string_parameters: event |> Map.get("queryStringParameters"),
-      multi_value_query_string_parameters: event |> Map.get("multiValueQueryStringParameters"),
       request_context: event |> Map.get("requestContext"),
+      body: event |> Map.get("body"),
       path_parameters: event |> Map.get("pathParameters"),
       stage_variables: event |> Map.get("stageVariables"),
-      body: event |> Map.get("body", event |> Jason.encode!()),
-      is_base64_encoded: event |> Map.get("isBase64Encoded")
+      is_base64_encoded: event |> Map.get("isBase64Encoded"),
+      resource: event |> Map.get("resource"),
+      path: path,
+      http_method: method,
+      multi_value_headers: event |> Map.get("multiValueHeaders"),
+      multi_value_query_string_parameters: event |> Map.get("multiValueQueryStringParameters")
     }
   end
 end
