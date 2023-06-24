@@ -9,7 +9,7 @@ The package can be installed by adding `faas_base` to your list of dependencies 
 ```elixir
 def deps do
   [
-    {:faas_base, "~> 1.1.0"}
+    {:faas_base, "~> 1.1.1"}
   ]
 end
 ```
@@ -128,7 +128,7 @@ end
 $ handle_module=Upcase
 $ method_name=upcase
 $ mkdir -p _build
-$ docker run -d -it --rm --name elx erintheblack/elixir-azure-functions-builder:1.10.4
+$ docker run -d -it --rm --name elx erintheblack/elixir-azure-functions-builder:1.10.3
 $ docker cp lib elx:/tmp
 $ docker cp mix.exs elx:/tmp
 $ docker exec elx /bin/bash -c "mix deps.get; MIX_ENV=prod mix azure.release ${handle_module} ${method_name} 'get post'"
