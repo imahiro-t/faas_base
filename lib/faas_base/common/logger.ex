@@ -56,12 +56,12 @@ defmodule FaasBase.Common.Logger do
   Log Warning.
   """
   def warn(message) when message |> is_binary do
-    Logger.warn(message)
+    Logger.warning(message)
     message
   end
 
   def warn(message) do
-    Logger.warn(inspect(message))
+    Logger.warning(inspect(message))
     message
   end
 
@@ -69,12 +69,12 @@ defmodule FaasBase.Common.Logger do
   Log Error.
   """
   def error(message) when message |> is_binary do
-    Logger.warn(message)
+    Logger.warning(message)
     message
   end
 
   def error(message) do
-    Logger.warn(inspect(message))
+    Logger.warning(inspect(message))
     message
   end
 end
