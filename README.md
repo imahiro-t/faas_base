@@ -9,7 +9,7 @@ The package can be installed by adding `faas_base` to your list of dependencies 
 ```elixir
 def deps do
   [
-    {:faas_base, "~> 1.1.1"}
+    {:faas_base, "~> 1.2.0"}
   ]
 end
 ```
@@ -55,7 +55,7 @@ end
 
 ```
 $ mkdir -p _build
-$ docker run -d -it --rm --name elx erintheblack/elixir-lambda-builder:al2_1.10.4
+$ docker run -d -it --rm --name elx erintheblack/elixir-lambda-builder:al2023_1.16.2
 $ docker cp mix.exs elx:/tmp
 $ docker cp lib elx:/tmp
 $ docker exec elx /bin/bash -c "mix deps.get; MIX_ENV=prod mix aws.release"
@@ -64,6 +64,7 @@ $ docker stop elx
 ```
 
 4a. Upload zip file and set configuration.
+
 - Set `Module Name` to `handler`.
 - Set Log level to `environment` -> `LOG_LEVEL`
   - `debug`, `info`, `warn`, `error`
@@ -84,6 +85,7 @@ $ docker build -t ${image_name}:latest ./_build/_aws/
 ```
 
 4b. Register Docker image and set configuration.
+
 - Set Log level to `environment` -> `LOG_LEVEL`
   - `debug`, `info`, `warn`, `error`
 
@@ -186,6 +188,5 @@ $ docker stop elx
 $ cd ./_build/_azure
 $ ibmcloud fn action create upcase upcase-0.1.0.zip --native --web true --param LOG_LEVEL info
 ```
-
 
 The docs can be found at [https://hexdocs.pm/faas_base](https://hexdocs.pm/faas_base).
